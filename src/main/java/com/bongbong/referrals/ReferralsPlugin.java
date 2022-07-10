@@ -35,7 +35,7 @@ public class ReferralsPlugin extends JavaPlugin {
                 storage = new SQL(this, Database.Type.SQLite);
                 break;
             default:
-                getLogger().log(Level.SEVERE, "YOU MUST SELECT EITHER MONGO, MYSQL, OR SQLITE IN THE CONFIG!");
+                getLogger().log(Level.SEVERE, "YOU MUST SELECT EITHER MYSQL OR SQLITE IN THE CONFIG!");
                 onDisable();
                 break;
         }

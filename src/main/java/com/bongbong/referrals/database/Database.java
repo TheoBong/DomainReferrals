@@ -10,15 +10,17 @@ public abstract class Database {
     public abstract Type type();
 
     //Returns whether the uuid exists
-    public abstract void referCheck(UUID uuid, String hostname);
+    public abstract void referCheck(UUID uuid, String hostname, Result result);
 
     public abstract void createDomain(UUID uuid, String hostname, Result result);
 
     public abstract void getReferredList(UUID uuid, Result result);
 
-    //Creates a profile for the referred and adds entry referrer_uuid.
-//    //Adds the referred uuid to the list of referred_uuids in the referrers profile.
-//    public abstract void firstLogin(boolean async, UUID uuidReferred, UUID uuidReferrer);
+    public abstract void setGroup(UUID uuid, String group, Result result);
+
+    public abstract void resetReferrals(UUID uuid, Result result);
+
+    public abstract void checkDomain(String subdomain, Result result);
 
     public abstract void close();
 }

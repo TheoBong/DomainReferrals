@@ -8,14 +8,8 @@
 DATABASE:
   #Recommend using MongoDB rather than MySQL/SQLite (Required for storing data).
 
-  # You can use either "mongo", "sqlite", or "mysql" (Must use 1 of them) - SQLite works without setup.
+  # You can use either "sqlite", or "mysql" (Must use 1 of them) - SQLite works without setup.
   USE: "sqlite"
-
-  # MongoDB Fields - only applied if 'USE' option is set to "mongo"
-  MONGO:
-    LOCALHOST_NO_AUTH: false # Only use this if you know what it is, this will replace URI if enabled.
-    URI: "mongodb://user:pass@127.0.0.1/punishments"
-    DB: "referrals"
 
   # MySQL/MariaDB Fields - only applied if 'USE' option is set to "mysql"
   MYSQL:
@@ -24,6 +18,39 @@ DATABASE:
     USER: "user"
     PASSWORD: "password"
     DATABASE: "referrals"
+
+GENERAL:
+  DEFAULT_DOMAIN_GROUP: "NORMAL"
+
+INVITE_REWARDS:
+  10:
+    MESSAGE: "You claimed your 10 invite reward, you get $1000."
+    COMMANDS:
+      - "addmoney {player} 1000"
+  20:
+    MESSAGE: "You claimed your 20 invite reward, you get $2000."
+    COMMANDS:
+      - "addmoney {player} 2000"
+  50:
+    MESSAGE: "You claimed your 50 invite reward, you get $5000."
+    COMMANDS:
+      - "addmoney {player} 5000"
+  100:
+    MESSAGE: "You claimed your 100 invite reward, you get $10000."
+    COMMANDS:
+      - "addmoney {player} 10000"
+
+JOIN_REWARDS_GROUPS:
+  NORMAL:
+    MESSAGE: "You joined using a player domain. You get $500 and a commmon key!"
+    COMMANDS:
+      - "givekey {player} common-key"
+      - "addmoney {player} 500"
+  PARTNER:
+    MESSAGE: "You joined using a partner domain. You get $1000 and a partner key!"
+    COMMANDS:
+      - "givekey {player} partner-key"
+      - "addmoney {player} 1000"
 
 #
 # The End!
