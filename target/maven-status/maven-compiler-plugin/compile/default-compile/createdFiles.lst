@@ -7,6 +7,7 @@ com\bongbong\referrals\utils\ThreadUtil.class
 com\bongbong\referrals\ReferralsPlugin.class
 com\bongbong\referrals\utils\Colors.class
 com\bongbong\referrals\utils\WebPlayer.class
+com\bongbong\referrals\Locale.class
 com\bongbong\referrals\database\Database$Type.class
 com\bongbong\referrals\database\sequel\SQL.class
 com\bongbong\referrals\database\Result.class

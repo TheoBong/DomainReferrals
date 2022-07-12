@@ -6,8 +6,6 @@
 #
 
 DATABASE:
-  #Recommend using MongoDB rather than MySQL/SQLite (Required for storing data).
-
   # You can use either "sqlite", or "mysql" (Must use 1 of them) - SQLite works without setup.
   USE: "sqlite"
 
@@ -20,8 +18,22 @@ DATABASE:
     DATABASE: "referrals"
 
 GENERAL:
-  DEFAULT_DOMAIN_GROUP: "NORMAL"
+  DEFAULT_REWARD_GROUP: "NORMAL"
 
+JOIN_REWARDS_GROUPS:
+  NORMAL:
+    MESSAGE: "You joined using a player domain. You get $500 and a commmon key!"
+    COMMANDS:
+      - "givekey {player} common-key"
+      - "addmoney {player} 500"
+  PARTNER:
+    MESSAGE: "You joined using a partner domain. You get $1000 and a partner key!"
+    COMMANDS:
+      - "givekey {player} partner-key"
+      - "addmoney {player} 1000"
+
+
+#This is work in progress - does not actually work right now
 INVITE_REWARDS:
   10:
     MESSAGE: "You claimed your 10 invite reward, you get $1000."
@@ -39,18 +51,6 @@ INVITE_REWARDS:
     MESSAGE: "You claimed your 100 invite reward, you get $10000."
     COMMANDS:
       - "addmoney {player} 10000"
-
-JOIN_REWARDS_GROUPS:
-  NORMAL:
-    MESSAGE: "You joined using a player domain. You get $500 and a commmon key!"
-    COMMANDS:
-      - "givekey {player} common-key"
-      - "addmoney {player} 500"
-  PARTNER:
-    MESSAGE: "You joined using a partner domain. You get $1000 and a partner key!"
-    COMMANDS:
-      - "givekey {player} partner-key"
-      - "addmoney {player} 1000"
 
 #
 # The End!
