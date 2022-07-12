@@ -57,10 +57,13 @@ public class ReferCommand extends BaseCommand {
                     String[] separated = args[1].split("\\.");
                     String subdomain = separated[0];
 
-                    if (subdomain.equals(ConfigValues.ORIGIN_SUBDOMAIN.format(plugin))) {
-                        sender.sendMessage(Locale.NO_ORIGIN.format(plugin));
-                        return;
+                    for (String serverDomain : ConfigValues.SERVER_SUBDOMAINS.formatLines(plugin)) {
+                        if (subdomain.equals(serverDomain)) {
+                            sender.sendMessage(Locale.NO_ORIGIN.format(plugin));
+                            return;
+                        }
                     }
+
 
                     plugin.getStorage().createDomain(player.getUniqueId(), subdomain, result -> {
                         if (result instanceof Boolean) {

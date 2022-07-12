@@ -3,13 +3,16 @@ package com.bongbong.referrals;
 import com.bongbong.referrals.utils.Colors;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 public enum ConfigValues {
 //    MONGO_DATABASE("DATABASE.MONGO.DB"),
 //    MONGO_URI("DATABASE.MONGO.URI"),
 
     DEFAULT_REWARD_GROUP("GENERAL.DEFAULT_REWARD_GROUP"),
-    ORIGIN_SUBDOMAIN("GENERAL.ORIGIN_SUBDOMAIN"),
+    SERVER_SUBDOMAINS("GENERAL.SERVER_SUBDOMAINS"),
 
     SQL_HOST("DATABASE.MYSQL.HOST"),
     SQL_PORT("DATABASE.MYSQL.PORT"),
@@ -21,5 +24,15 @@ public enum ConfigValues {
 
     public String format(ReferralsPlugin plugin) {
         return Colors.convertLegacyColors(plugin.getConfig().getString(path));
+    }
+
+    public List<String> formatLines(ReferralsPlugin plugin) {
+        List<String> lines = new ArrayList<>();
+
+        for (String string : plugin.getMessagesFile().getStringList(path)) {
+            lines.add(Colors.convertLegacyColors(string));
+        }
+
+        return lines;
     }
 }
