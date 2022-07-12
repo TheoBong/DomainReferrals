@@ -1,8 +1,8 @@
 package com.bongbong.referrals.commands.impl;
 
+import com.bongbong.referrals.Locale;
 import com.bongbong.referrals.ReferralsPlugin;
 import com.bongbong.referrals.commands.BaseCommand;
-import com.bongbong.referrals.utils.Colors;
 import com.bongbong.referrals.utils.ThreadUtil;
 import com.bongbong.referrals.utils.WebPlayer;
 import org.bukkit.Bukkit;
@@ -37,7 +37,7 @@ public class ReferCommand extends BaseCommand {
             switch (args[0]) {
                 case "create":
                     if (!(sender instanceof Player)) {
-                        sender.sendMessage("Only players can use this command.");
+                        sender.sendMessage(Locale.ONLY_PLAYERS.format(plugin));
                         return;
                     }
                     player = (Player) sender;
@@ -54,10 +54,14 @@ public class ReferCommand extends BaseCommand {
                         if (result instanceof Boolean) {
                             boolean success = (boolean) result;
                             if (success) {
-                                player.sendMessage("You have claimed the subdomain: " + subdomain + ".kitpvp.cc!");
-                                player.sendMessage("You will be rewarded whenever a player joins using that.");
+                                List<String> list = new ArrayList<>();
+                                for (String string : Locale.SUBDOMAIN_CLAIMED.formatLines(plugin)) {
+                                    list.add(string.replace("{subdomain}", subdomain));
+                                }
+
+                                player.sendMessage(String.join("\n", list));
                             } else {
-                                player.sendMessage("Someone has already claimed this subdomain.");
+                                player.sendMessage(Locale.SUBDOMAIN_CLAIM_FAIL.format(plugin));
                             }
                         }
                     });
@@ -85,9 +89,14 @@ public class ReferCommand extends BaseCommand {
                         targetUUID = target.getUniqueId();
                     }
 
+                    if (targetUUID == null) {
+                        sender.sendMessage(Locale.PLAYER_INVALID.format(plugin));
+                        return;
+                    }
+
                     plugin.getStorage().getReferredList(targetUUID, result -> {
                         if (result == null) {
-                            sender.sendMessage("Target has no referrals");
+                            sender.sendMessage(Locale.PLAYER_CHECK_FAIL.format(plugin).replace("{target}", args[1]));
                             return;
                         }
 
@@ -96,7 +105,11 @@ public class ReferCommand extends BaseCommand {
                         List<String> referredList = new ArrayList<>(Arrays.asList(test));
 
                         referredList.forEach(sender::sendMessage);
-                        sender.sendMessage("Player has referred " + referredList.size() + "players");
+
+                        sender.sendMessage(Locale.PLAYER_CHECK_SUCCESS.format(plugin)
+                                .replace("{amount}", referredList.size() + "")
+                                .replace("{target}", args[1])
+                        );
                     });
                     break;
                 case "checkdomain":
@@ -107,18 +120,19 @@ public class ReferCommand extends BaseCommand {
 
                     plugin.getStorage().checkDomain(args[1], result -> {
                         if (result == null) {
-                            sender.sendMessage("Domain does not belong to anyone");
+                            sender.sendMessage(Locale.DOMAIN_CHECK_FAIL.format(plugin));
                             return;
                         }
 
                         UUID uuid = UUID.fromString((String) result);
 
                         WebPlayer webPlayer = new WebPlayer(uuid);
-                        sender.sendMessage("This domain belongs to: " + webPlayer.getName());
+                        String targetName = webPlayer.getName();
+                        sender.sendMessage(Locale.DOMAIN_CHECK_SUCCESS.format(plugin).replace("{target}", targetName));
 
                         plugin.getStorage().getReferredList(uuid, result1 -> {
                             if (result1 == null) {
-                                sender.sendMessage("Target has no referrals");
+                                sender.sendMessage(Locale.PLAYER_CHECK_FAIL.format(plugin).replace("{target}", targetName));
                                 return;
                             }
 
@@ -127,13 +141,16 @@ public class ReferCommand extends BaseCommand {
                             List<String> referredList = new ArrayList<>(Arrays.asList(test));
 
                             referredList.forEach(sender::sendMessage);
-                            sender.sendMessage("Player has referred " + referredList.size() + "players");
+                            sender.sendMessage(Locale.PLAYER_CHECK_SUCCESS.format(plugin)
+                                    .replace("{amount}", referredList.size() + "")
+                                    .replace("{target}", targetName)
+                            );
                         });
                     });
                     break;
                 case "reset":
                     if (!sender.hasPermission("refer.admin")) {
-                        sender.sendMessage("No permission!");
+                        sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
                         return;
                     }
 
@@ -151,22 +168,27 @@ public class ReferCommand extends BaseCommand {
                         targetUUID = target.getUniqueId();
                     }
 
+                    if (targetUUID == null) {
+                        sender.sendMessage(Locale.PLAYER_INVALID.format(plugin));
+                        return;
+                    }
+
                     plugin.getStorage().resetReferrals(targetUUID, result -> {
                         boolean success = (boolean) result;
                         if (success) {
-                            sender.sendMessage("Success!");
+                            sender.sendMessage(Locale.RESET_SUCCESS.format(plugin).replace("{target}", args[1]));
                         } else {
-                            sender.sendMessage("Player has never joined before.");
+                            sender.sendMessage(Locale.RESET_FAIL.format(plugin).replace("{target}", args[1]));
                         }
                     });
                     break;
                 case "reload":
                     plugin.reloadConfig();
-                    sender.sendMessage("Success!");
+                    sender.sendMessage(Locale.RELOAD_MESSAGE.format(plugin));
                     break;
                 case "setgroup":
                     if (!sender.hasPermission("refer.admin")) {
-                        sender.sendMessage("No permission!");
+                        sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
                         return;
                     }
 
@@ -185,12 +207,19 @@ public class ReferCommand extends BaseCommand {
                         targetUUID = target.getUniqueId();
                     }
 
+                    if (targetUUID == null) {
+                        sender.sendMessage(Locale.PLAYER_INVALID.format(plugin));
+                        return;
+                    }
+
                     plugin.getStorage().setGroup(targetUUID, group, result -> {
                         boolean success = (boolean) result;
                         if (success) {
-                            sender.sendMessage("Success!");
+                            sender.sendMessage(Locale.SETGROUP_SUCCESS.format(plugin)
+                                    .replace("{target}", args[1])
+                                    .replace("{group}", group));
                         } else {
-                            sender.sendMessage("Player either does not have a domain or has never joined.");
+                            sender.sendMessage(Locale.SETGROUP_FAIL.format(plugin));
                         }
                     });
                     break;
@@ -202,20 +231,17 @@ public class ReferCommand extends BaseCommand {
     }
 
     private void sendHelp(CommandSender sender) {
-        sender.sendMessage(Colors.convertLegacyColors("&7&m-------------------------------------"));
-        sender.sendMessage(Colors.convertLegacyColors("&a&lDOMAIN REFERRALS &7- &fhttps://github.com/TheoBong/Referrals/"));
-        sender.sendMessage(Colors.convertLegacyColors(""));
-        sender.sendMessage(Colors.convertLegacyColors("&f/refer create <subdomain> &7- claim a subdomain as your own"));
-        sender.sendMessage(Colors.convertLegacyColors("&f/refer rewards &7- claim your rewards for referring people"));
-        sender.sendMessage(Colors.convertLegacyColors("&f/refer check [player] &7- check how many referrals someone has"));
-        sender.sendMessage(Colors.convertLegacyColors("&f/refer checkdomain <subdomain> &7- check information about a subdomain"));
+        List<String> list = new ArrayList<>(Locale.HELP_MESSAGE_START.formatLines(plugin));
 
-        if (sender.hasPermission("refer.admin")) {
-            sender.sendMessage(Colors.convertLegacyColors("&f/refer reset <player> &7- reset a players domain & referrals"));
-            sender.sendMessage(Colors.convertLegacyColors("&f/refer reload &7- reloads the config file for domain referrals"));
-            sender.sendMessage(Colors.convertLegacyColors("&f/refer setgroup [subdomain] [group] &7- set a domain's reward group"));
-        }
+        if (sender.hasPermission(Locale.CREATE_PERMISSION.format(plugin))) list.add(Locale.HELP_CREATE.format(plugin));
+        if (sender.hasPermission(Locale.CHECK_PERMISSION.format(plugin))) list.add(Locale.HELP_CHECK.format(plugin));
+        if (sender.hasPermission(Locale.CHECK_DOMAIN_PERMISSION.format(plugin))) list.add(Locale.HELP_CHECK_DOMAIN.format(plugin));
+        if (sender.hasPermission(Locale.RESET_PERMISSION.format(plugin))) list.add(Locale.HELP_RESET.format(plugin));
+        if (sender.hasPermission(Locale.RELOAD_PERMISSION.format(plugin))) list.add(Locale.HELP_RELOAD.format(plugin));
+        if (sender.hasPermission(Locale.SETGROUP_PERMISSION.format(plugin))) list.add(Locale.HELP_SETGROUP.format(plugin));
 
-        sender.sendMessage(Colors.convertLegacyColors("&7&m-------------------------------------"));
+        list.addAll(Locale.HELP_MESSAGE_END.formatLines(plugin));
+
+        sender.sendMessage(String.join("\n", list));
     }
 }

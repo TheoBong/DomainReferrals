@@ -4,7 +4,6 @@ import com.bongbong.referrals.ConfigValues;
 import com.bongbong.referrals.ReferralsPlugin;
 import com.bongbong.referrals.database.Database;
 import com.bongbong.referrals.database.Result;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -269,7 +268,7 @@ public class SQL extends Database {
 
             Connection con = getConnection();
 
-            PreparedStatement stat = con.prepareStatement("CREATE TABLE IF NOT EXISTS players (id VARCHAR(36) PRIMARY KEY, referrer VARCHAR(36), referred LONGTEXT, subdomain LONGTEXT, reward_group LONGTEXT, claimed_rewards LONGTEXT);");
+            PreparedStatement stat = con.prepareStatement("CREATE TABLE IF NOT EXISTS players (id VARCHAR(36) PRIMARY KEY, referrer VARCHAR(36), referred LONGTEXT, subdomain LONGTEXT, rewards_group LONGTEXT, claimed_rewards LONGTEXT);");
             stat.execute();
         } catch (SQLException localSQLException) {
             localSQLException.printStackTrace();

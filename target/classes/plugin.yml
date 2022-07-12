@@ -1,5 +1,5 @@
 name: DomainReferrals
 description: An domain referral plugin (https://github.com/TheoBong/DomainReferrals/).
-version: git-DomainReferrals-bfa63ef
+version: git-DomainReferrals-478bad7
 author: Theo
 main: com.bongbong.referrals.ReferralsPlugin
