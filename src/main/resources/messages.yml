@@ -19,8 +19,8 @@ MESSAGES:
   # The message that console receives when only players should run the command.
   ONLY_PLAYERS: "&cThis command can only be ran by players."
 
-  # The message that players receive when they try to claim the origin domain.
-  NO_ORIGIN: "&cYou can't claim this sub-domain!"
+  # The message that players receive when they try to claim a server domain.
+  NO_ORIGIN: "&cYou can't claim a server domain!"
 
   # The message that is received when a command is executed on a non valid player.
   PLAYER_INVALID: "&cThat player does not exist or no minecraft account exists with that name."

@@ -42,15 +42,15 @@ public enum Locale {
 	private String path;
 
 	public String format(ReferralsPlugin plugin) {
-		return Colors.convertLegacyColors(plugin.getMessagesFile().getString(path)
-				.replace("{domain}", plugin.getMessagesFile().getString(DOMAIN.path)));
+		return Colors.convertLegacyColors(plugin.getMessagesFile().getString(path))
+				.replace("{domain}", plugin.getMessagesFile().getString(DOMAIN.path));
 	}
 
 	public List<String> formatLines(ReferralsPlugin plugin) {
 		List<String> lines = new ArrayList<>();
 
 		for (String string : plugin.getMessagesFile().getStringList(path)) {
-			lines.add(Colors.convertLegacyColors(string));
+			lines.add(Colors.convertLegacyColors(string).replace("{domain}", plugin.getMessagesFile().getString(DOMAIN.path)));
 		}
 
 		return lines;

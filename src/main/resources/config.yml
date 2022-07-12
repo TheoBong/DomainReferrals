@@ -19,7 +19,13 @@ DATABASE:
 
 GENERAL:
   DEFAULT_REWARD_GROUP: "NORMAL"
-  ORIGIN_SUBDOMAIN: "origin"
+  SERVER_SUBDOMAINS:
+    - "origin"
+    - "play"
+    - "mc"
+    - "join"
+    - "server"
+    - "official"
 
 JOIN_REWARDS_GROUPS:
   NORMAL:
