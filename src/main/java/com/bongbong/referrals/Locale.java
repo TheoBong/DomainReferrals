@@ -41,7 +41,8 @@ public enum Locale {
 	private String path;
 
 	public String format(ReferralsPlugin plugin) {
-		return Colors.convertLegacyColors(plugin.getMessagesFile().getString(path).replace("{domain}", DOMAIN.format(plugin)));
+		return Colors.convertLegacyColors(plugin.getMessagesFile().getString(path)
+				.replace("{domain}", plugin.getMessagesFile().getString(DOMAIN.path)));
 	}
 
 	public List<String> formatLines(ReferralsPlugin plugin) {
