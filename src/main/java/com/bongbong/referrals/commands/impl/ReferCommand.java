@@ -36,6 +36,11 @@ public class ReferCommand extends BaseCommand {
             UUID targetUUID;
             switch (args[0]) {
                 case "create":
+                    if (!sender.hasPermission(Locale.CREATE_PERMISSION.format(plugin))) {
+                        sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
+                        return;
+                    }
+
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(Locale.ONLY_PLAYERS.format(plugin));
                         return;
@@ -71,6 +76,10 @@ public class ReferCommand extends BaseCommand {
                     sender.sendMessage("Rewards is work in progress");
                     break;
                 case "check":
+                    if (!sender.hasPermission(Locale.CHECK_PERMISSION.format(plugin))) {
+                        sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
+                        return;
+                    }
                     if (args.length < 2) {
                         if (sender instanceof Player) {
                             target = (Player) sender;
@@ -113,6 +122,10 @@ public class ReferCommand extends BaseCommand {
                     });
                     break;
                 case "checkdomain":
+                    if (!sender.hasPermission(Locale.CHECK_DOMAIN_PERMISSION.format(plugin))) {
+                        sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
+                        return;
+                    }
                     if (args.length < 2) {
                         sendHelp(sender);
                         break;
@@ -149,7 +162,7 @@ public class ReferCommand extends BaseCommand {
                     });
                     break;
                 case "reset":
-                    if (!sender.hasPermission("refer.admin")) {
+                    if (!sender.hasPermission(Locale.RESET_PERMISSION.format(plugin))) {
                         sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
                         return;
                     }
@@ -183,15 +196,19 @@ public class ReferCommand extends BaseCommand {
                     });
                     break;
                 case "reload":
-                    plugin.reloadMessages();
-                    sender.sendMessage(Locale.RELOAD_MESSAGE.format(plugin));
-                    break;
-                case "setgroup":
-                    if (!sender.hasPermission("refer.admin")) {
+                    if (!sender.hasPermission(Locale.RELOAD_PERMISSION.format(plugin))) {
                         sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
                         return;
                     }
 
+                    plugin.reloadMessages();
+                    sender.sendMessage(Locale.RELOAD_MESSAGE.format(plugin));
+                    break;
+                case "setgroup":
+                    if (!sender.hasPermission(Locale.SETGROUP_PERMISSION.format(plugin))) {
+                        sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
+                        return;
+                    }
                     if (args.length < 3) {
                         sendHelp(sender);
                         break;
@@ -231,14 +248,26 @@ public class ReferCommand extends BaseCommand {
     }
 
     private void sendHelp(CommandSender sender) {
+        boolean createPermission = sender.hasPermission(Locale.CREATE_PERMISSION.format(plugin));
+        boolean checkPermission = sender.hasPermission(Locale.CHECK_PERMISSION.format(plugin));
+        boolean checkDomainPermission = sender.hasPermission(Locale.CHECK_DOMAIN_PERMISSION.format(plugin));
+        boolean resetPermission = sender.hasPermission(Locale.RESET_PERMISSION.format(plugin));
+        boolean reloadPermission = sender.hasPermission(Locale.RELOAD_PERMISSION.format(plugin));
+        boolean setGroupPermission = sender.hasPermission(Locale.SETGROUP_PERMISSION.format(plugin));
+
+        if (!(createPermission || checkPermission || checkDomainPermission || resetPermission || reloadPermission || setGroupPermission)) {
+            sender.sendMessage(Locale.NO_PERMISSION.format(plugin));
+            return;
+        }
+
         List<String> list = new ArrayList<>(Locale.HELP_MESSAGE_START.formatLines(plugin));
 
-        if (sender.hasPermission(Locale.CREATE_PERMISSION.format(plugin))) list.add(Locale.HELP_CREATE.format(plugin));
-        if (sender.hasPermission(Locale.CHECK_PERMISSION.format(plugin))) list.add(Locale.HELP_CHECK.format(plugin));
-        if (sender.hasPermission(Locale.CHECK_DOMAIN_PERMISSION.format(plugin))) list.add(Locale.HELP_CHECK_DOMAIN.format(plugin));
-        if (sender.hasPermission(Locale.RESET_PERMISSION.format(plugin))) list.add(Locale.HELP_RESET.format(plugin));
-        if (sender.hasPermission(Locale.RELOAD_PERMISSION.format(plugin))) list.add(Locale.HELP_RELOAD.format(plugin));
-        if (sender.hasPermission(Locale.SETGROUP_PERMISSION.format(plugin))) list.add(Locale.HELP_SETGROUP.format(plugin));
+        if (createPermission) list.add(Locale.HELP_CREATE.format(plugin));
+        if (checkPermission) list.add(Locale.HELP_CHECK.format(plugin));
+        if (checkDomainPermission) list.add(Locale.HELP_CHECK_DOMAIN.format(plugin));
+        if (resetPermission) list.add(Locale.HELP_RESET.format(plugin));
+        if (reloadPermission) list.add(Locale.HELP_RELOAD.format(plugin));
+        if (setGroupPermission) list.add(Locale.HELP_SETGROUP.format(plugin));
 
         list.addAll(Locale.HELP_MESSAGE_END.formatLines(plugin));
 

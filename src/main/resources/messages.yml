@@ -24,8 +24,8 @@ MESSAGES:
 
   HELP_MESSAGE_START:
     - "&7&m-------------------------------------"
-    - "&a&lDOMAIN REFERRALS &7- &fhttps://github.com/TheoBong/Referrals/"
-    - ""
+    - "&a&lREFERRALS &7- &fhttps://github.com/TheoBong/Referrals/"
+    - "&f &f"
 
   HELP_CREATE: "&f/refer create <subdomain> &7- claim a subdomain as your own"
   HELP_CHECK: "&f/refer check [player] &7- check how many referrals someone has"
