@@ -26,9 +26,14 @@ public class ReferralsPlugin extends JavaPlugin {
     @Getter private Database storage;
     @Getter private YamlConfiguration messagesFile;
 
+
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
+
+        //Creates & Loads messages file.
+        createMessages();
+        reloadMessages();
 
         switch (getConfig().getString("DATABASE.USE").toLowerCase()) {
 //            case "mongo":

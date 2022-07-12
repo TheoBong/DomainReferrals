@@ -48,7 +48,7 @@ MESSAGES:
   DOMAIN_CHECK_FAIL: "&cThat domain has not been claimed by anyone!"
   RESET_SUCCESS: "&aYou successfully reset {target}'s referrals!"
   RESET_FAIL: "&cPlayer has never joined the server before!"
-  RELOAD_MESSAGE: "&aYou successfully reloaded the config!"
+  RELOAD_MESSAGE: "&aYou successfully reloaded the messages file!"
   SETGROUP_SUCCESS: "&aYou successfully set &f {target}&a's reward group to&f {group}&a."
   SETGROUP_FAIL: "&cPlayer either does not have a domain or has never joined the server."
 

@@ -183,7 +183,7 @@ public class ReferCommand extends BaseCommand {
                     });
                     break;
                 case "reload":
-                    plugin.reloadConfig();
+                    plugin.reloadMessages();
                     sender.sendMessage(Locale.RELOAD_MESSAGE.format(plugin));
                     break;
                 case "setgroup":
