@@ -8,7 +8,7 @@ public class ThreadUtil {
         if(async) {
             plugin.getServer().getScheduler().runTaskAsynchronously(plugin, runnable);
         } else {
-            runnable.run();
+            plugin.getServer().getScheduler().runTask(plugin, runnable);
         }
     }
 }

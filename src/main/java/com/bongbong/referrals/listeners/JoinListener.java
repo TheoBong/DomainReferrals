@@ -29,7 +29,9 @@ public class JoinListener implements Listener {
                 event.getPlayer().sendMessage(plugin.getConfig().getString("JOINREWARDS_GROUPS." + resultString + ".MESSAGE"));
 
                 for(String command : plugin.getConfig().getStringList("JOIN_REWARDS_GROUPS." + resultString + ".COMMANDS")) {
-                    plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command);
+                    ThreadUtil.runTask(false, plugin, () -> {
+                        plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command);
+                    });
                 }
             });
         });
