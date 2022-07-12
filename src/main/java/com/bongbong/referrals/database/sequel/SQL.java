@@ -1,6 +1,7 @@
 package com.bongbong.referrals.database.sequel;
 
 import com.bongbong.referrals.ConfigValues;
+import com.bongbong.referrals.Locale;
 import com.bongbong.referrals.ReferralsPlugin;
 import com.bongbong.referrals.database.Database;
 import com.bongbong.referrals.database.Result;
@@ -52,7 +53,7 @@ public class SQL extends Database {
                 ps2.setString(2, referrer);
                 ps2.setString(3, null);
                 ps2.setString(4, null);
-                ps2.setString(5, plugin.getConfig().getString("GENERAL.DEFAULT_DOMAIN_GROUP"));
+                ps2.setString(5, ConfigValues.DEFAULT_REWARD_GROUP.format(plugin));
                 ps2.setString(6, null);
                 ps2.executeUpdate();
 

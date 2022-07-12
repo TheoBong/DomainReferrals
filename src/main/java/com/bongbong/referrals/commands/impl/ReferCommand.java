@@ -1,5 +1,6 @@
 package com.bongbong.referrals.commands.impl;
 
+import com.bongbong.referrals.ConfigValues;
 import com.bongbong.referrals.Locale;
 import com.bongbong.referrals.ReferralsPlugin;
 import com.bongbong.referrals.commands.BaseCommand;
@@ -45,6 +46,7 @@ public class ReferCommand extends BaseCommand {
                         sender.sendMessage(Locale.ONLY_PLAYERS.format(plugin));
                         return;
                     }
+
                     player = (Player) sender;
 
                     if (args.length < 2) {
@@ -54,6 +56,11 @@ public class ReferCommand extends BaseCommand {
 
                     String[] separated = args[1].split("\\.");
                     String subdomain = separated[0];
+
+                    if (subdomain.equals(ConfigValues.ORIGIN_SUBDOMAIN.format(plugin))) {
+                        sender.sendMessage(Locale.NO_ORIGIN.format(plugin));
+                        return;
+                    }
 
                     plugin.getStorage().createDomain(player.getUniqueId(), subdomain, result -> {
                         if (result instanceof Boolean) {
