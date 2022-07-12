@@ -14,16 +14,16 @@ MESSAGES:
   DOMAIN: "example.com"
 
   # The message players get when they don't have permission for a command.
-  NO_PERMISSION: "&cNo Permission!"
+  NO_PERMISSION: "&cYou don't have permission to execute this command."
 
   # The message that console receives when only players should run the command.
-  ONLY_PLAYERS: "&cOnly players can use that command!"
+  ONLY_PLAYERS: "&cThis command can only be ran by players."
 
   # The message that players receive when they try to claim a server domain.
   NO_ORIGIN: "&cYou can't claim a server domain!"
 
   # The message that is received when a command is executed on a non valid player.
-  PLAYER_INVALID: "&cThat player does not exist (no minecraft account exists with that name)."
+  PLAYER_INVALID: "&cThat player does not exist or no minecraft account exists with that name."
 
   # This is the message players receive when they either have incorrect syntax or missing args
   # Players will only see the commands that they have permission for (See permission section on line 56).
@@ -33,28 +33,28 @@ MESSAGES:
     - "&a&lREFERRALS &7- &fhttps://github.com/TheoBong/Referrals/"
     - "&f &f"
 
-  HELP_CREATE: "&f/refer create <subdomain> &7- claim a subdomain as your own"
-  HELP_CHECK: "&f/refer check [player] &7- check how many referrals someone has"
-  HELP_CHECK_DOMAIN: "&f/refer checkdomain <subdomain> &7- check information about a subdomain"
-  HELP_RESET: "&f/refer reset <player> &7- reset a players domain & referrals"
-  HELP_RELOAD: "&f/refer reload &7- reloads the config file for domain referrals"
-  HELP_SETGROUP: "&f/refer setgroup [player] [group] &7- set a domain's reward group"
+  HELP_CREATE: "&f/refer create <subdomain> &7- claim a subdomain as your own."
+  HELP_CHECK: "&f/refer check [player] &7- check how many referrals someone has."
+  HELP_CHECK_DOMAIN: "&f/refer checkdomain <subdomain> &7- check information about a subdomain."
+  HELP_RESET: "&f/refer reset <player> &7- reset a players domain & referrals."
+  HELP_RELOAD: "&f/refer reload &7- reloads the config file for domain referrals."
+  HELP_SETGROUP: "&f/refer setgroup [player] [group] &7- set a domain's reward group."
 
   HELP_MESSAGE_END:
     - "&7&m-------------------------------------"
 
 
   SUBDOMAIN_CLAIMED:
-    - "&aYou have successfully claimed the subdomain: {subdomain}.{domain}!"
+    - "&aYou have successfully claimed the subdomain: {subdomain}.{domain}"
     - "&aYou will now earn rewards when a new player joins using that domain."
   SUBDOMAIN_CLAIM_FAIL: "&cSomeone has already claimed this subdomain."
-  PLAYER_CHECK_SUCCESS: "&a{target} has referred&f {amount} &aplayers!"
-  PLAYER_CHECK_FAIL: "&c{target} has not referred anybody!"
-  DOMAIN_CHECK_SUCCESS: "&aThis domain belongs to {target}!"
-  DOMAIN_CHECK_FAIL: "&cThat domain has not been claimed by anyone!"
-  RESET_SUCCESS: "&aYou successfully reset {target}'s referrals!"
-  RESET_FAIL: "&cPlayer has never joined the server before!"
-  RELOAD_MESSAGE: "&aYou successfully reloaded the messages file!"
+  PLAYER_CHECK_SUCCESS: "&a{target} has referred&f {amount} &aplayers."
+  PLAYER_CHECK_FAIL: "&c{target} has not referred anybody."
+  DOMAIN_CHECK_SUCCESS: "&aThis domain belongs to {target}."
+  DOMAIN_CHECK_FAIL: "&cThat sub-domain has not been claimed by anyone."
+  RESET_SUCCESS: "&aYou successfully reset {target}'s referrals."
+  RESET_FAIL: "&cThat player has never joined the server before."
+  RELOAD_MESSAGE: "&aYou successfully reloaded the messages file."
   SETGROUP_SUCCESS: "&aYou successfully set &f {target}&a's reward group to&f {group}&a."
   SETGROUP_FAIL: "&cPlayer either does not have a domain or has never joined the server."
 
