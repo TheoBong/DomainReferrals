@@ -123,8 +123,7 @@ public class ReferCommand extends BaseCommand {
                         String[] test = referredString.split(",");
                         List<String> referredList = new ArrayList<>(Arrays.asList(test));
 
-                        referredList.forEach(sender::sendMessage);
-
+                        // referredList.forEach(sender::sendMessage);
                         sender.sendMessage(Locale.PLAYER_CHECK_SUCCESS.format(plugin)
                                 .replace("{amount}", referredList.size() + "")
                                 .replace("{target}", args[1])
@@ -163,7 +162,7 @@ public class ReferCommand extends BaseCommand {
                             String[] test = referredString.split(",");
                             List<String> referredList = new ArrayList<>(Arrays.asList(test));
 
-                            referredList.forEach(sender::sendMessage);
+                            // referredList.forEach(sender::sendMessage);
                             sender.sendMessage(Locale.PLAYER_CHECK_SUCCESS.format(plugin)
                                     .replace("{amount}", referredList.size() + "")
                                     .replace("{target}", targetName)

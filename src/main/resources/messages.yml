@@ -23,7 +23,7 @@ MESSAGES:
   NO_ORIGIN: "&cYou can't claim a server domain!"
 
   # The message that is received when a command is executed on a non valid player.
-  PLAYER_INVALID: "&cThat player does not exist or no minecraft account exists with that name."
+  PLAYER_INVALID: "&cNo minecraft account exists with that name."
 
   # This is the message players receive when they either have incorrect syntax or missing args
   # Players will only see the commands that they have permission for (See permission section on line 56).
@@ -56,7 +56,7 @@ MESSAGES:
   RESET_FAIL: "&cThat player has never joined the server before."
   RELOAD_MESSAGE: "&aYou successfully reloaded the messages file."
   SETGROUP_SUCCESS: "&aYou successfully set &f {target}&a's reward group to&f {group}&a."
-  SETGROUP_FAIL: "&cPlayer either does not have a domain or has never joined the server."
+  SETGROUP_FAIL: "&cPlayer has never joined the server before."
 
 
 # These permissions correspond to each of the /refer subcommands.

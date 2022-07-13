@@ -1,6 +1,5 @@
 package com.bongbong.referrals.utils;
 
-
 import com.bongbong.referrals.ReferralsPlugin;
 
 public class ThreadUtil {

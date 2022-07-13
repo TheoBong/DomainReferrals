@@ -1,7 +1,6 @@
 package com.bongbong.referrals.database.sequel;
 
 import com.bongbong.referrals.ConfigValues;
-import com.bongbong.referrals.Locale;
 import com.bongbong.referrals.ReferralsPlugin;
 import com.bongbong.referrals.database.Database;
 import com.bongbong.referrals.database.Result;
@@ -164,11 +163,6 @@ public class SQL extends Database {
             }
 
             if (rs.next()) {
-                if (rs.getString("hostname") == null) {
-                    result.call(false);
-                    return;
-                }
-
                 PreparedStatement ps1 = getConnection().prepareStatement("REPLACE INTO players(id, referrer, referred, subdomain, rewards_group, claimed_rewards) VALUES (?,?,?,?,?,?)");
                 ps1.setString(1, rs.getString("id"));
                 ps1.setString(2, rs.getString("referrer"));
